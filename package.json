@@ -1,0 +1,31 @@
+{
+  "name": "result",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "ci": "npm run build",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakobu/result.git"
+  },
+  "keywords": [
+    "result",
+    "monad",
+    "typescript",
+    "fp"
+  ],
+  "author": "Sarkis Melkonian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sakobu/result/issues"
+  },
+  "homepage": "https://github.com/sakobu/result#readme",
+  "description": "Result Monad for TypeScript",
+  "type": "module",
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
+  }
+}
