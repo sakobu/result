@@ -162,11 +162,7 @@ export class AsyncResult<E, A> {
   ): Promise<AsyncResult<E, B>> {
     const data = await this.getResolvedData();
     if (data._tag === 'Ok') {
-      const result = await f(data.value);
-      if (result instanceof AsyncResult) {
-        return result;
-      }
-      return AsyncResult.ok(result);
+      return await Promise.resolve(f(data.value));
     }
     return AsyncResult.err(data.error);
   }
