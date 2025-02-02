@@ -1,1 +1,2 @@
-export { Result } from './core/Result.js';
+export { Result } from './core/Result';
+export * from './types';

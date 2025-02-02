@@ -1,4 +1,4 @@
-import type { ResultData } from '../types/index.js';
+import type { ResultData } from '../types/index';
 
 /**
  * A class representing a Result type that can contain either a success value of type A
