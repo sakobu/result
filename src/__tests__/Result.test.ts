@@ -45,7 +45,7 @@ describe('Result', () => {
       it('should return Ok for successful operation', () => {
         const result = Result.tryCatch(
           () => 42,
-          (e) => String(e)
+          (e) => String(e),
         );
         expect(result.isOk()).toBe(true);
         expect(result.unwrap()).toBe(42);
@@ -53,8 +53,10 @@ describe('Result', () => {
 
       it('should return Err for thrown error', () => {
         const result = Result.tryCatch(
-          () => { throw new Error('test error'); },
-          (e) => (e as Error).message
+          () => {
+            throw new Error('test error');
+          },
+          (e) => (e as Error).message,
         );
         expect(result.isErr()).toBe(true);
         expect(result.unwrapErr()).toBe('test error');
@@ -65,62 +67,62 @@ describe('Result', () => {
   describe('instance methods', () => {
     describe('rMap', () => {
       it('should map Ok value', () => {
-        const result = Result.ok<string, number>(42)
-          .rMap(x => x * 2);
+        const result = Result.ok<string, number>(42).rMap((x) => x * 2);
         expect(result.unwrap()).toBe(84);
       });
 
       it('should not map Err value', () => {
-        const result = Result.err<string, number>('error')
-          .rMap(x => x * 2);
+        const result = Result.err<string, number>('error').rMap((x) => x * 2);
         expect(result.unwrapErr()).toBe('error');
       });
     });
 
     describe('rMapErr', () => {
       it('should map Err value', () => {
-        const result = Result.err<string, number>('error')
-          .rMapErr(e => e.toUpperCase());
+        const result = Result.err<string, number>('error').rMapErr((e) =>
+          e.toUpperCase(),
+        );
         expect(result.unwrapErr()).toBe('ERROR');
       });
 
       it('should not map Ok value', () => {
-        const result = Result.ok<string, number>(42)
-          .rMapErr(e => e.toUpperCase());
+        const result = Result.ok<string, number>(42).rMapErr((e) =>
+          e.toUpperCase(),
+        );
         expect(result.unwrap()).toBe(42);
       });
     });
 
     describe('chain', () => {
       it('should chain Ok values', () => {
-        const result = Result.ok<string, number>(42)
-          .chain(x => Result.ok(x.toString()));
+        const result = Result.ok<string, number>(42).chain((x) =>
+          Result.ok(x.toString()),
+        );
         expect(result.unwrap()).toBe('42');
       });
 
       it('should not chain Err values', () => {
-        const result = Result.err<string, number>('error')
-          .chain(x => Result.ok(x.toString()));
+        const result = Result.err<string, number>('error').chain((x) =>
+          Result.ok(x.toString()),
+        );
         expect(result.unwrapErr()).toBe('error');
       });
     });
 
     describe('match', () => {
       it('should match Ok value', () => {
-        const result = Result.ok<string, number>(42)
-          .match(
-            e => e.length,
-            n => n * 2
-          );
+        const result = Result.ok<string, number>(42).match(
+          (e) => e.length,
+          (n) => n * 2,
+        );
         expect(result).toBe(84);
       });
 
       it('should match Err value', () => {
-        const result = Result.err<string, number>('error')
-          .match(
-            e => e.length,
-            n => n * 2
-          );
+        const result = Result.err<string, number>('error').match(
+          (e) => e.length,
+          (n) => n * 2,
+        );
         expect(result).toBe(5);
       });
     });

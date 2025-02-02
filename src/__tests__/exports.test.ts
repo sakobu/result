@@ -11,7 +11,7 @@ describe('exports', () => {
   it('should handle ResultData type', () => {
     const okData: ResultData<string, number> = { _tag: 'Ok', value: 42 };
     const errData: ResultData<string, number> = { _tag: 'Err', error: 'error' };
-    
+
     expect(okData._tag).toBe('Ok');
     expect(errData._tag).toBe('Err');
   });
